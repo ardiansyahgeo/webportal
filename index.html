@@ -41,6 +41,21 @@ h1 {
     letter-spacing: 1.5px;
 }
 
+#countdown{
+    text-align:center;
+    font-size:clamp(14px,4vw,18px);
+    margin: 0 auto 26px;   /* KUNCI TENGAH */
+    padding:10px 16px;
+    max-width: 520px;     /* Biar rapi di layar lebar */
+    background:rgba(255,193,7,0.18);
+    border:1px solid rgba(255,193,7,0.6);
+    border-radius:12px;
+    color:#ffc107;
+    font-weight:600;
+    letter-spacing:0.5px;
+}
+
+	
 .menu {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -88,7 +103,8 @@ h1 {
 <body>
 <div class="overlay">
 
-    <h1>PORTAL SBNP PDAM PURWAKARTA</h1>
+ <h1>PORTAL SBNP PDAM PURWAKARTA</h1>
+<div id="countdown">⏳ Menghitung sisa waktu survey...</div>
 
     <div class="menu">
         <!-- MENU PALING ATAS -->
@@ -112,7 +128,40 @@ h1 {
         <img src="logo3.jpg" alt="Logo 3">
     </div>
 
+<script>
+const countdownEl = document.getElementById("countdown");
+
+/* Target: 15 Maret pukul 24.00 (23:59:59) */
+const targetDate = new Date("2026-03-15T23:59:59").getTime();
+
+setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+        countdownEl.innerHTML = "⛔ Waktu survey telah berakhir";
+        countdownEl.style.color = "#ff5252";
+        countdownEl.style.borderColor = "#ff5252";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    countdownEl.innerHTML =
+        `⏳ Survey berakhir dalam:
+        <b>${days}</b> hari
+        <b>${hours}</b> jam
+        <b>${minutes}</b> menit
+        <b>${seconds}</b> detik`;
+}, 1000);
+</script>
+
+	
 </div>
 </body>
 
 </html>
+
