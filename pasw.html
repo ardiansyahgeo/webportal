@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portal Password Survey ArcGIS 123</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2980b9, #6dd5fa);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 2em;
+      text-shadow: 1px 1px 3px #000;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 30px;
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2ecc71;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <h1>PASWORD <b>ID SURVEYOR</b> untuk penggunaan Survey ArcGIS 123</h1> 
+ <h3> Survey SBNP PDAM PURWAKARTA</h1>
+
+  <div class="container">
+    <form id="sandiForm">
+      <label for="name">Nama Lengkap (cek di database surveyor, Case sensitive):</label>
+      <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap sesuai daftar" required>
+      <label for="password">5 Digit Terakhir NIK:</label>
+      <input type="password" id="password" name="password" placeholder="Contoh: 12345" required>
+      <button type="submit">Tampilkan Sandi</button>
+    </form>
+    <div class="result" id="result"></div>
+    <div class="note">
+      ⚠️ Harap menjaga kerahasiaan pasword, <b> Apabila terdeteksi penggunaan satu pasword namun beda IP Address (perangkat berbeda), maka surveyor akan kena konsekuensi.</b>
+    </div>
+  </div>
+  <script>
+    const dataSurveyor = 
+	
+	{
+  "Haryani Setiowati": { "password": "70001", "sandi": "K7m" },
+  "Hendrayana": { "password": "00001", "sandi": "b0Q" },
+  "Abbas Musthofa Arief": { "password": "00004", "sandi": "Q4j" },
+  "Abdul Aziz Arramadhani": { "password": "20007", "sandi": "S7c" },
+  "Adhi Rangga Evalianto": { "password": "20013", "sandi": "N9q" },
+  "Ahmad Tajudin": { "password": "00004", "sandi": "V8e" },
+  "Ahmad Deno Saputera": { "password": "90001", "sandi": "C3x" },
+  "Andhika bagaskara": { "password": "00003", "sandi": "P1u" },
+  "Arya Mubarak": { "password": "30005", "sandi": "T9a" },
+  "Dede Suhendar": { "password": "20002", "sandi": "q1H" },
+  "Demas angger": { "password": "20009", "sandi": "Z6n" },
+  "Dimas Amirul Seto": { "password": "00001", "sandi": "s6E" },
+  "Farhan Ramadhan ( Geofisika)": { "password": "80001", "sandi": "g1P" },
+  "Farisan Arisyi": { "password": "30002", "sandi": "t0Y" },
+  "Ilham Rahmawan": { "password": "30004", "sandi": "c2Z" },
+  "Indra hadianto": { "password": "90003", "sandi": "A3h" },
+  "Lisya Aryanti": { "password": "10010", "sandi": "e8F" },
+  "Luthfi Nur Hasanah": { "password": "20002", "sandi": "m9B" },
+  "Mahfud Barnawi": { "password": "60003", "sandi": "X5t" },
+  "Mohammad Hafiz": { "password": "20005", "sandi": "h7L" },
+  "Mohamad Arif Fajar": { "password": "20005", "sandi": "d4M" },
+  "Muhamad adil farhan": { "password": "90004", "sandi": "y4T" },
+  "Muhammad Bagus Ramadhan": { "password": "90001", "sandi": "M7V" },
+  "Muhammad daffa adelard": { "password": "50001", "sandi": "H9w" },
+  "Muhammad Nurul Afiq": { "password": "00001", "sandi": "J0s" },
+  "Muhammad Wildan Ashidiqi": { "password": "90001", "sandi": "k3A" },
+  "Nugi Ibnu Saputra": { "password": "10001", "sandi": "r8C" },
+  "Putra Abdul Aziz": { "password": "60005", "sandi": "U1k" },
+  "Rahmad Rivaldi Hasudungan": { "password": "80006", "sandi": "W4k" },
+  "Reza Oktavia": { "password": "80001", "sandi": "Y2p" },
+  "Riski Tutut Prihatin": { "password": "00002", "sandi": "z5N" },
+  "Rizky Ramadani": { "password": "00014", "sandi": "p3X" },
+  "Satria Wira Buana": { "password": "00003", "sandi": "f5R" },
+  "Syahid Ali Adamiri": { "password": "10003", "sandi": "u6D" },
+  "Udi isomudin": { "password": "10004", "sandi": "B6r" },
+  "YOSHUA VERNANDA SIAHAAN": { "password": "70001", "sandi": "w2K" },
+  "Ade Yuda Anwari": { "password": "40001", "sandi": "n3J" },
+  "Adrian Zhuanando F": { "password": "31001", "sandi": "AzF" },
+  "Ahmad Muhaimin Aziz": { "password": "30008", "sandi": "F5a" },
+  "Alvien Hanif Ramadhan": { "password": "00010", "sandi": "x7Q" },
+  "Aris Herman Siswanto": { "password": "70085", "sandi": "D2p" },
+  "Avian Nur Rahma": { "password": "30005", "andi": "I8S" },
+  "Chaka Firdaus": { "password": "00102", "sandi": "G4v" },
+  "Hadi Nurcahya": { "password": "31001", "sandi": "H1c" },
+  "Ibnu Adam Maulana": { "password": "10001", "sandi": "K1e" },
+  "Ilham wayka salinjaman": { "password": "90005", "sandi": "r5X" },
+  "Muhammad Bagus Berliana": { "password": "10001", "sandi": "V3m" },
+  "Qois Naufal": { "password": "80001", "sandi": "b7L" },
+  "Rifa Nurul Syafiqoh": { "password": "10004", "sandi": "T0d" },
+  "Wildan Saleh": { "password": "90017", "sandi": "E2q" },
+  "Zaid Wadzif Jarullah": { "password": "00002", "sandi": "ZWj" },
+  "Zikril Hakim": { "password": "30005", "sandi": "a8W" }
+
+	
+}	;
+
+    document.getElementById('sandiForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('name').value.trim();
+      const passInput = document.getElementById('password').value.trim();
+      const resultDiv = document.getElementById('result');
+
+      if (dataSurveyor[nameInput] && dataSurveyor[nameInput].password === passInput) {
+        resultDiv.textContent = `Sandi Anda: ${dataSurveyor[nameInput].sandi}`;
+      } else {
+        resultDiv.textContent = 'Nama atau 5 digit NIK tidak cocok.';
+      }
+    });
+  </script>
+</body>
+</html>
